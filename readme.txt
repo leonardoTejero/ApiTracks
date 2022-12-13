@@ -1,6 +1,8 @@
 Informacion sobre la construccion de la api
 
 El nombre de los archivos sera el usado para crear las rutas dinamicas
+Un usuario puede tener varios roles
+El usurario puede registrarce y estar dentro de la aplicacion de una vez sin tener que hacer otra peticion de login
 
 El controlador de tracks encargado unicamente de los datos de las canciones y 
 esta enlazado con el id generado al subir un archivo en el controlador de

@@ -1,7 +1,8 @@
 
 const handleHttpError = (res, message = "Ocurrio un error", code = 500) => {
-    res.status(code);
-    res.json({ error: message, issues: "handleHttpError" });
+    // TODO  recibir el mensage de error del catch
+    res.status(code).send({ error: message, issues: "handleHttpError"});
+    // res.json({ error: message, issues: "handleHttpError" });
 };
 
 module.exports = { handleHttpError };
