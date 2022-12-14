@@ -45,7 +45,7 @@ const login = async (req, res) => {
             return
         }
         // Volver a proteger la password para que no se envie en la respuesta
-        user.set("password", undefined, {strict:false});
+        user.set("password", undefined, {strict: false});
 
         const data = {
             token: await tokenSing(user),
@@ -59,3 +59,4 @@ const login = async (req, res) => {
 };
 
 module.exports = { register, login };
+

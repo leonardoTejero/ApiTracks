@@ -48,6 +48,54 @@ const TrackScheme = new mongoose.Schema(
     }
 );
 
+/**
+ * Metodo para relacionar la cancion con el archivo del storage
+ */
+TrackScheme.statics.findAllData = function () {
+    const joinData = this.aggregate([
+        {
+            $lookup: {
+                from: "almacenamientos", // Tracks --> storage(nombreColeccion)
+                localField: "mediaId", // tracks.mediaId
+                foreignField: "_id", // storege._id
+                as: "audio" // Alias
+            }
+        },
+        {
+            $unwind: "$audio" // quitar los resultados de audio del arreglo a solo objetos
+        }
+    ]);
+    return joinData
+};
+
+/**
+ * Relacionar el archivo de audio de una cancion
+ * @param {*} id 
+ * @returns 
+ */
+TrackScheme.statics.findOneData = function (id) {
+    const joinData = this.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: "almacenamientos", // Tracks --> storage(nombreColeccion)
+                localField: "mediaId", // tracks.mediaId
+                foreignField: "_id", // storege._id
+                as: "audio" // Alias
+            }
+        },
+        {
+            $unwind: "$audio" // quitar los resultados de audio del arreglo 
+        }
+    ]);
+    return joinData
+};
+
+// Habilitar borrado logico
 TrackScheme.plugin(mongooseDelete, {overrideMethods: "all "});
 
 // (nombre coleccion, Esquema creado)

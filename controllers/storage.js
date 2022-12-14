@@ -10,7 +10,7 @@ const MEDIA_PATH = `${__dirname}/../storage`;
 const getItems = async (req, res) => {
   try {
     const data = await storageModel.find({});
-    res.send({ data });
+    res.send(data);
   } catch (error) {
     handleHttpError(res, "Error al obtener los archivos almacenados");
   }
@@ -20,7 +20,7 @@ const getItem = async (req, res) => {
     try {
         const { id } = matchedData(req);
         const data = await storageModel.findById(id);
-        res.send({ data });
+        res.send(data);
     } catch (error) {
         handleHttpError(res, "Error al obtener el archivo");
     }
@@ -33,9 +33,9 @@ const createItem = async (req, res) => {
         fileName: file.filename,
         url: `${PUBLIC_URL}/${file.filename}`,
     };
-    // console.log("\n", fileData);
+
     const data = await storageModel.create(fileData);
-    res.send({ data });
+    res.send(data);
   } catch (error) {
     handleHttpError(res, "Error al subir el archivo");
   }
@@ -43,7 +43,7 @@ const createItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
   try {
-
+    //! No se actualiza el archivo. En ese caso eliminar y crear uno nuevo
   } catch (error) {
     handleHttpError(res, "Error al actualizar el archivo");
   }

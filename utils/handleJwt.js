@@ -30,7 +30,6 @@ const tokenSing = async (user) => {
  */
 const verifyToken = async (tokenJwt) => {
     try {
-        console.log("ASDFA",jwt.verify(tokenJwt, JWT_SECRET));
         return jwt.verify(tokenJwt, JWT_SECRET);
     } catch (e) {
         return console.log("Error al verificar el token ", e.message);

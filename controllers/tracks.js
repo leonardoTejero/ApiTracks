@@ -1,4 +1,5 @@
 
+const e = require("express");
 const { matchedData } = require("express-validator");
 const { tracksModel } = require("../models");
 const { handleHttpError } = require("../utils/handleError");
@@ -6,20 +7,20 @@ const { handleHttpError } = require("../utils/handleError");
 const getItems = async (req, res) => {
 
     try {
-        const data = await tracksModel.find({});
+        const data = await tracksModel.findAllData({});
         //! Envia la data en desorden
         res.send(data);
-    } catch (error) {
+    } catch (e) {
         // TODO enviar el propio mensaje del error
-        handleHttpError(res, "Error al obtener las canciones");
+        handleHttpError(res, "Error al obtener las canciones. "+ e.message);
     }
 };
 
 const getItem = async (req, res) => {
     try {
         const {id} = req.params;
-        const data = await tracksModel.findById(id);
-        res.send({ data });
+        const data = await tracksModel.findOneData(id);
+        res.send(data);
     } catch (e) {
         handleHttpError(res, "Error al obtener la canciones");
     }
@@ -30,7 +31,7 @@ const createItem = async (req, res) => {
         // limpia el body de propiedades incorrectas en la peticion
         const body = matchedData(req);
         const data = await tracksModel.create(body);
-        res.send({data});
+        res.send(data);
     } catch (error) {
         handleHttpError(res, "Error al crear la cancion");
     }
