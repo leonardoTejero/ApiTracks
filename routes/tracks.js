@@ -1,4 +1,3 @@
-// import express  from "express";
 
 const express = require("express");
 const { getItems, getItem, createItem, updateItem, deleteItem } = require("../controllers/tracks");
@@ -16,5 +15,4 @@ router.put("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, valida
 router.delete("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, deleteItem); 
 
 
-// export default router;
 module.exports = router;

@@ -2,6 +2,8 @@ const { verifyToken } = require("../utils/handleJwt");
 const { userModel } = require("../models");
 const { handleHttpError } = require("../utils/handleError");
 
+
+// Verificar el token
 const authMiddleware = async (req, res, next) => {
     try {
         
@@ -28,8 +30,7 @@ const authMiddleware = async (req, res, next) => {
 
         next();
     } catch (e) {
-        // ! mensaje nulo y error 500 probar si funciona
-        handleHttpError(res, "Ocurrio un error", 500); //"No ha iniciado sesion"
+        handleHttpError(res, "Ocurrio un error"); //"No ha iniciado sesion"
     }
 }
 

@@ -1,9 +1,3 @@
-// import express  from "express";
-// import cors from "cors";
-// import dbConnect from "./config/mongo.js";
-// import ruta from  "./routes/index.js";
-// import {config} from "dotenv";
-// config();
 
 const express = require("express");
 const cors = require("cors");

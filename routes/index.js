@@ -1,14 +1,11 @@
 
-
 const express = require("Express");
 const fs = require("fs");
 
 const router = express.Router();
 
-// ruta del archivo en la maquina c/......
+// ruta del archivo en la maquina c:/users/documentos...
 const PATH_ROUTES = __dirname; 
-// const __filename = url.fileURLToPath(import.meta.url);
-// const PATH_ROUTES = path.dirname(__filename); 
 
 const removeExtension = (fileName) => {
     return fileName.split('.').shift();

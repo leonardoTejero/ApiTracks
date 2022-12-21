@@ -36,8 +36,8 @@ const createItem = async (req, res) => {
 
     const data = await storageModel.create(fileData);
     res.send(data);
-  } catch (error) {
-    handleHttpError(res, "Error al subir el archivo");
+  } catch (e) {
+    handleHttpError(res, "Error al subir el archivo. "+ e.message);
   }
 };
 

@@ -1,5 +1,5 @@
 const { matchedData } = require("express-validator");
-const { tokenSing, verifyToken } = require("../utils/handleJwt");
+const { tokenSing } = require("../utils/handleJwt");
 const { encrypt, compare } = require("../utils/handlePassword");
 const { handleHttpError } = require("../utils/handleError");
 const { userModel } = require("../models");

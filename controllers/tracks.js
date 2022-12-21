@@ -1,5 +1,4 @@
 
-const e = require("express");
 const { matchedData } = require("express-validator");
 const { tracksModel } = require("../models");
 const { handleHttpError } = require("../utils/handleError");
@@ -8,10 +7,8 @@ const getItems = async (req, res) => {
 
     try {
         const data = await tracksModel.findAllData({});
-        //! Envia la data en desorden
         res.send(data);
     } catch (e) {
-        // TODO enviar el propio mensaje del error
         handleHttpError(res, "Error al obtener las canciones. "+ e.message);
     }
 };
@@ -41,8 +38,12 @@ const updateItem = async (req, res) => {
     try {
         // crear 2 objetos a partir de request, uno con el id y lo restante en body
         const { id, ...body} = matchedData(req);
-        const data = await tracksModel.findOneAndUpdate(
-            id, body
+        const data = await tracksModel.findByIdAndUpdate(
+            id, 
+            body,
+            {
+                returnDocument: "after" // mostrar el usuario actualizado
+            }
         );
         res.send({data});
     } catch (error) {

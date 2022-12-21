@@ -1,7 +1,6 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const config = require("dotenv").config();
-const { handleHttpError } = require("../utils/handleError");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -17,7 +16,7 @@ const tokenSing = async (user) => {
         },
         JWT_SECRET,
         {
-            expiresIn:"1h" // TODO cambiar el tiempo de expiracion
+            expiresIn:"2h" // TODO cambiar el tiempo de expiracion
         }
     );
     return sign;
