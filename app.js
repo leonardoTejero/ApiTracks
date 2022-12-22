@@ -1,19 +1,27 @@
 
 const express = require("express");
 const cors = require("cors");
-const ruta = require("./routes/index");
-const config = require("dotenv").config();
+const openApiConfiguration = require("./docs/swagger");
+const swaggerUI = require("swagger-ui-express");
+require("dotenv").config();
 const dbConnect = require("./config/mongo.js");
+
 
 const app = express();
 app.use(cors());
-// La aplicacion acepte json
+
+// Hacer que la aplicacion acepte json
 app.use(express.json());
+
 // Acceder a los archivos de la carpeta storage
 app.use(express.static("storage"));
 
-//Rutas
-app.use("/api", ruta); 
+//Rutas. Por defecto va al index
+app.use("/api",require("./routes")); 
+
+//Rutas de la documentacion
+app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(openApiConfiguration));
+
 
 const port = process.env.PORT || 3000;
 

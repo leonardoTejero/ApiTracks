@@ -2,9 +2,7 @@ const multer = require("multer");
 
 //! ESTABLECER LIMITE AL TAMAÑO DE LOS ARCHIVOS
 const storage = multer.diskStorage({
-    // limits: {
-    //     fileSize: 10 // Sensitive: 10MB is more than the recommended limit of 8MB
-    //   },
+
     destination: function (req, file, cb) {
         const pathStorage = `${__dirname}/../storage`;
         cb(null, pathStorage);
@@ -18,6 +16,8 @@ const storage = multer.diskStorage({
     }
 });
 
-const uploadMiddleware = multer({ storage, limits:{ fileSize: 1} }).single("myFile"); //.single("myFile")
-    
+// TODO Limitar el tamaño del archivo desde el middleware
+const uploadMiddleware = multer({ storage }).single("myFile"); // limits:{ fileSize: 10000000} //10MB
+
 module.exports = uploadMiddleware;
+    

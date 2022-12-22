@@ -3,11 +3,16 @@ const { tokenSing } = require("../utils/handleJwt");
 const { encrypt, compare } = require("../utils/handlePassword");
 const { handleHttpError } = require("../utils/handleError");
 const { userModel } = require("../models");
+const e = require("express");
 
 const register = async (req, res) => {
     try {
-        // Limpiar el req de datos basura o inecesarios
         req = matchedData(req);
+        const existUser = await userModel.find({email: req.email});
+        if(existUser.length !== 0){
+           return handleHttpError(res, "El correo ya fue usado intente con otro. ", 403);
+        } 
+        // Limpiar el req de datos basura o inecesarios
         const password = await encrypt(req.password);
         // Del objeto req, sobreescriba la propiedad password con la encriptacion de la misma en la line de arriba
         const body = { ...req, password };
@@ -22,16 +27,16 @@ const register = async (req, res) => {
         };
     
         res.send({data})
-    } catch (error) {
-        handleHttpError(res, "Ocurrio un error al registrarse");
+    } catch (e) {
+        handleHttpError(res, "Ocurrio un error al registrarse. "+ e.message, 403);
     }
 };
 
 const login = async (req, res) => {
     try {
         req = matchedData(req);
-        // select es un filtro para poder retornar la password que no deberia retornar
-        const user = await userModel.findOne({email:req.email}).select("password name email role"); // "name email role"
+        // select es un filtro para poder retornar la password que no deberia retornar segun el modelo
+        const user = await userModel.findOne({email: req.email}).select("password name email role");
         if(!user){
             handleHttpError(res, "El usuario no existe", 404);
             return
