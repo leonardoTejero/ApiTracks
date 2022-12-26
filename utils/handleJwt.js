@@ -1,4 +1,4 @@
-const e = require("express");
+
 const jwt = require("jsonwebtoken");
 const config = require("dotenv").config();
 
@@ -31,7 +31,8 @@ const verifyToken = async (tokenJwt) => {
     try {
         return jwt.verify(tokenJwt, JWT_SECRET);
     } catch (e) {
-        return console.log("Error al verificar el token ", e.message);
+        // console.log("Error al verificar el token. ", e.message);
+        return null
     }
 };
 

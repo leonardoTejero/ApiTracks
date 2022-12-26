@@ -8,20 +8,17 @@ const authMiddleware = async (req, res, next) => {
     try {
         
         if(!req.headers.authorization){
-            handleHttpError(res, "No se encontró el token de autenticacion", 401);
-        return
+            return handleHttpError(res, "No se encontró el token de autenticacion", 401);
         }
 
         const token = req.headers.authorization.split(' ').pop();
         const dataToken = await verifyToken(token);
 
         if(dataToken == undefined){
-            handleHttpError(res, "El token ha expirado, debe iniciar sesion nuevamente", 403);
-            return
+            return handleHttpError(res, "El token ha expirado, debe iniciar sesion nuevamente", 403); 
         }
         if(!dataToken?._id){
-            handleHttpError(res, "Error del id del token", 401);
-            return
+            return handleHttpError(res, "Error del id del token", 401);     
         }
 
         // Obtener el usuario y usarlo en los controladores
@@ -30,7 +27,7 @@ const authMiddleware = async (req, res, next) => {
 
         next();
     } catch (e) {
-        handleHttpError(res, "Ocurrio un error"); //"No ha iniciado sesion"
+        handleHttpError(res, "Ocurrio un error al iniciar sesion"); 
     }
 }
 

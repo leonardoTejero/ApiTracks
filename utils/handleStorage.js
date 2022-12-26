@@ -10,8 +10,10 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const ext = file.originalname.split(".").pop();
 
-        // TODO  CAMBIAR EL NOMBRAMIENTO DE LOS ARCHIVOS CON EL NOMBRE ORIGINAL 
-        const fileName = `file-${Date.now()}.${ext}`;
+        // const fileName = `file-${Date.now()}.${ext}`; // nombramiento anterior
+        console.log(file);
+        const nom = file.originalname.split(" ").shift();
+        const fileName = `f-${nom}-${Date.now()}.${ext}`;
         cb(null, fileName);
     }
 });

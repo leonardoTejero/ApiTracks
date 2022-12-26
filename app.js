@@ -6,6 +6,8 @@ const swaggerUI = require("swagger-ui-express");
 require("dotenv").config();
 const dbConnect = require("./config/mongo.js");
 
+// Ambiente
+const NODE_ENV = process.env.NODE_ENV || "development";
 
 const app = express();
 app.use(cors());
@@ -25,8 +27,12 @@ app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(openApiConfiguration));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-    console.log("App activa en el puerto "+ port)
+if(NODE_ENV !== "test")
+    app.listen(port, () => {
+        console.log("App activa en el puerto "+ port)
 });    
 
 dbConnect();
+
+// Poder usar en tests
+module.exports = app;

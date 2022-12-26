@@ -56,7 +56,7 @@ const swaggerDefinition = {
                     },
                 }
             },
-            track: {
+            tracks: {
                 type: "object",
                 required: ["name", "albun", "cover", "artist"],
                 properties: {

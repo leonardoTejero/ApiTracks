@@ -13,6 +13,9 @@ Crea la base de datos cuando es ejecutado la primera vez
 Borrado logico y no fisico con la dependencia mongoose-delete, permanece la data en la bd pero tiene propiedad 
 de eliminado true o false y al obtner por el controlador los false no aparecen, com si no existiesen
 
+uso de base de datos diferente para las pruebas con switch en app.js
+
 *** Dependencias
 
 Multer = middleware para la carga de archivos
+

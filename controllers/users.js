@@ -32,7 +32,6 @@ const createUser = async (req, res) => {
         // limpia el body de propiedades incorrectas en la peticion
         req = matchedData(req);
         const body = { ...req, role: "admin" };
-        console.log(body);
         await userModel.create(body);
         res.send(body);
     } catch (e) {
