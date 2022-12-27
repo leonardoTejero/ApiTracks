@@ -15,6 +15,13 @@ de eliminado true o false y al obtner por el controlador los false no aparecen, 
 
 uso de base de datos diferente para las pruebas con switch en app.js
 
+
+**** TODO
+Crear mas roles admin, user, manager
+
+
+
+
 *** Dependencias
 
 Multer = middleware para la carga de archivos

@@ -1,7 +1,7 @@
 
 const express = require("express");
 const cors = require("cors");
-const openApiConfiguration = require("./docs/swagger");
+const openApiConfiguration = require("./documentation/swagger");
 const swaggerUI = require("swagger-ui-express");
 require("dotenv").config();
 const dbConnect = require("./config/mongo.js");
@@ -22,7 +22,7 @@ app.use(express.static("storage"));
 app.use("/api",require("./routes")); 
 
 //Rutas de la documentacion
-app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(openApiConfiguration));
+app.use("/api/documentation", swaggerUI.serve, swaggerUI.setup(openApiConfiguration));
 
 
 const port = process.env.PORT || 3000;

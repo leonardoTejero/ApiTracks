@@ -8,7 +8,13 @@ const swaggerDefinition = {
     openapi: "3.0.0",
     info: {
         title: "Documentacion de Api Rest de Canciones",
-        version: "1.0"
+        description: "Api construida en NodeJs, CRUD de Usuarios, Canciones, Almacenamiento de archivos(storage)",
+        version: "1.0",
+        contact: {
+            name: "Andres tejero",
+            url: "https://www.linkedin.com/in/leonardo-tejero-8a0b3a152/",
+            email: "leonardo.tejero@gmail.com"
+        }
     },
     servers: [
         {
@@ -103,6 +109,23 @@ const swaggerDefinition = {
                         type: "string"
                     },
                     fileName: {
+                        type: "string"
+                    }
+                }
+            },
+            users: {
+                type: "object",
+                properties: {
+                    name: {
+                        type: "string"
+                    },
+                    age: {
+                        type: "integer"
+                    },
+                    email: {
+                        type: "string"
+                    },
+                    password: {
                         type: "string"
                     }
                 }

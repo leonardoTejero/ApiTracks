@@ -42,7 +42,7 @@ const updateItem = async (req, res) => {
             id, 
             body,
             {
-                returnDocument: "after" // mostrar el usuario actualizado
+                returnDocument: "after" // mostrar la cancion actualizada
             }
         );
         res.send({data});

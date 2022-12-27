@@ -64,16 +64,44 @@ router.get("/:id", authMiddleware, validatorGetItem, getItem);
  *        summary: "Crear una cancion"
  *        requestBody:
  *          content:
- *              application/json:
- *                schema:
- *                    $ref: "#/components/schemas/tracks"
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/tracks"
  *        responses:
  *          '200':
- *            Cancion guardada correctamente
+ *              description: Cancion guardada correctamente     
  */
 router.post("/", authMiddleware, checkRol(["admin"]), validatorCreateItem, createItem); 
 
-
+/**
+ * Actualizar una cancion
+ * @openapi
+ * /tracks/{id}:
+ *      put:
+ *        tags:
+ *          - tracks
+ *        summary: "Actualizar una cancion"
+ *        security:
+ *          - bearerAuth: []
+ *        parameters:
+ *            - name: id
+ *              in: path
+ *              description: ID de la canción 
+ *              required: true
+ *              schema:
+ *                type: string
+ *        requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/tracks"
+ *        responses:
+ *            '200':
+ *              content:
+ *                application/json:
+ *                  schema: 
+ *                    $ref: '#/components/schemas/tracks'               
+ */
 router.put("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, validatorCreateItem, updateItem); 
 
 /**

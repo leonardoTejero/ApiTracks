@@ -34,7 +34,11 @@ router.post("/register", validatorRegister, register);
  *        tags:
  *          - auth
  *        summary: "Iniciar sesion"
- *        description: "Acceder a la aplicacion"
+ *        description: 'Acceder a la aplicacion.
+ *          {
+ *              "email": "user@gmail.com",
+ *              "password": 123456
+ *          }'
  *        requestBody:
  *          content:
  *            application/json:

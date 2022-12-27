@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles" 
+    "test": "cross-env NODE_ENV=test jest --coverage --detectOpenHandles" 
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,7 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "coverageReporters":["json", "html"]
   }
 }

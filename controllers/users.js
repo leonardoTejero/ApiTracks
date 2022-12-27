@@ -1,5 +1,4 @@
 
-
 const { query } = require("express");
 const e = require("express");
 const { matchedData } = require("express-validator");
@@ -12,7 +11,7 @@ const getUsers =  async (req, res) => {
         const data =  await userModel.find({}); 
         res.send(data);
     } catch (e) {
-        // TODO enviar el propio mensaje del error
+        // enviar el propio mensaje del error
         handleHttpError(res, "Error al obtener los usuarios. "+ e.message);
     }
 };
@@ -68,7 +67,6 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        // crear 2 objetos a partir de request, uno con el id y lo restante en body
         const {id} = req;
         // deleteOne Borrado fisico
         const data = await userModel.delete({_id:id});
