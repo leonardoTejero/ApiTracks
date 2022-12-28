@@ -8,8 +8,9 @@ const dbConnect = require("./config/mongo.js");
 
 // Ambiente
 const NODE_ENV = process.env.NODE_ENV || "development";
-
 const app = express();
+
+// Permite peticiones cruzadas como ajax
 app.use(cors());
 
 // Hacer que la aplicacion acepte json
