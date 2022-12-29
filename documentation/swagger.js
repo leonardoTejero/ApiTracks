@@ -21,7 +21,7 @@ const swaggerDefinition = {
             url: "http://localhost:4000/api"
         },
         {
-            url: "https://apitracksnode.onrender.com/api/documentation/"
+            url: "https://apitracksnode.onrender.com/api"
         },
         {
             url: "http://localhost:4001/api"
