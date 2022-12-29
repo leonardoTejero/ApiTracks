@@ -17,6 +17,7 @@ fs.readdirSync(PATH_ROUTES).filter((file) => {
     if(name !== "index"){ 
          // http://localhost:3000/api/tracks || storage || nombreArchivo
         router.use(`/${name}`, require(`./${file}`)); 
+        // console.log(`/${name}`);
     }
 });
 
