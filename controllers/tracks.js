@@ -53,7 +53,6 @@ const updateItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
     try {
-        // crear 2 objetos a partir de request, uno con el id y lo restante en body
         const {id} = req;
         // deleteOne Borrado fisico
         const data = await tracksModel.delete({_id:id});

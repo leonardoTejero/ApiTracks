@@ -4,8 +4,8 @@ const { register, login } = require("../controllers/auth");
 
 const router = express.Router();
 
-/**
- * Registrarse
+
+/**  Registrarse por primera vez
  * @openapi
  * /auth/register:
  *      post:
@@ -20,14 +20,17 @@ const router = express.Router();
  *                $ref: "#/components/schemas/authRegister"
  *        responses:
  *          '200':
- *            description: El usuario ha sido creado exitosamente
- *          '403':
- *            description: El correo ya ha sido usado
+ *            description: Success
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error
  */
 router.post("/register", validatorRegister, register);
 
-/**
- * Iniciar sesion
+/**  Iniciar sesion
  * @openapi
  * /auth/login:
  *      post:
@@ -46,9 +49,16 @@ router.post("/register", validatorRegister, register);
  *                $ref: "#/components/schemas/authLogin"
  *        responses:
  *          '200':
- *            description: Inicio de sesion exitoso
+ *            description: Success
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error
  */
 router.post("/login", validatorLogin, login);
+
 
 module.exports = router;
 

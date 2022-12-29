@@ -29,7 +29,7 @@ const UserScheme = new mongoose.Schema(
     }
 );
 
-UserScheme.plugin(mongooseDelete, {overrideMethods: "all "});
+UserScheme.plugin(mongooseDelete, {overrideMethods: "all"});
 
 // (nombre coleccion, el esquema creado)
 module.exports = mongoose.model("Usuarios", UserScheme);

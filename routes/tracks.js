@@ -7,8 +7,8 @@ const { validatorCreateItem, validatorGetItem } = require("../validators/tracks"
 
 const router = express.Router();
 
-/**
- * Obtener todas las canciones
+
+/**  Obtener todas las canciones 
  * @openapi
  * /tracks:
  *      get:
@@ -24,12 +24,17 @@ const router = express.Router();
  *                schema: 
  *                  type: array
  *                  items: 
- *                  $ref: '#/components/schemas/tracks'               
+ *                  $ref: '#/components/schemas/tracks'   
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error            
  */
 router.get("/", authMiddleware, getItems);
 
-/**
- * Obtener un archivo por id
+/**  Obtener una cancion por id
  * @openapi
  * /tracks/{id}:
  *      get:
@@ -50,18 +55,25 @@ router.get("/", authMiddleware, getItems);
  *              content:
  *                application/json:
  *                  schema: 
- *                    $ref: '#/components/schemas/tracks'               
+ *                    $ref: '#/components/schemas/tracks'       
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error        
  */
 router.get("/:id", authMiddleware, validatorGetItem, getItem);
 
-/**
- * Crear una cancion
+/**  Crear una cancion 
  * @openapi
  * /tracks:
  *      post:
  *        tags:
  *          - tracks
  *        summary: "Crear una cancion"
+ *        security:
+ *          - bearerAuth: []
  *        requestBody:
  *          content:
  *            application/json:
@@ -69,12 +81,17 @@ router.get("/:id", authMiddleware, validatorGetItem, getItem);
  *                $ref: "#/components/schemas/tracks"
  *        responses:
  *          '200':
- *              description: Cancion guardada correctamente     
+ *              description: Success    
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error 
  */
 router.post("/", authMiddleware, checkRol(["admin"]), validatorCreateItem, createItem); 
 
-/**
- * Actualizar una cancion
+/**  Actualizar una cancion 
  * @openapi
  * /tracks/{id}:
  *      put:
@@ -97,15 +114,17 @@ router.post("/", authMiddleware, checkRol(["admin"]), validatorCreateItem, creat
  *                $ref: "#/components/schemas/tracks"
  *        responses:
  *            '200':
- *              content:
- *                application/json:
- *                  schema: 
- *                    $ref: '#/components/schemas/tracks'               
+ *              description: Success
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error              
  */
 router.put("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, validatorCreateItem, updateItem); 
 
-/**
- * Eliminar un archivo por el id
+/**  Eliminar una cancion por el id
  * @openapi
  * /tracks/{id}:
  *      delete:
@@ -127,7 +146,13 @@ router.put("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, valida
  *              content:
  *                application/json:
  *                  schema: 
- *                    $ref: '#/components/schemas/tracks'               
+ *                    $ref: '#/components/schemas/tracks'
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error               
  */
 router.delete("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, deleteItem); 
 

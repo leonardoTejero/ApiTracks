@@ -10,34 +10,7 @@ const { validateFileSize } = require("../middleware/uploadFile");
 const router = express.Router();
 
 
-/**
- * Subir un archivo al storage
- * @openapi
- * /storage:
- *      post:
- *        tags:
- *          - storage
- *        summary: "Subir un archivo"
- *        description: "Subir el archivo de la cancion"
- *        security:
- *          - bearerAuth: []
- *        requestBody:
- *          content:
- *            multipart/form-data:
- *              schema:
- *                type: object
- *                properties:
- *                  myFile:
- *                    type: string
- *                    format: binary
- *        responses:
- *          '200':
- *            description: Archivo cargado correctamente              
- */
-router.post("/", authMiddleware, checkRol(["admin"]), uploadMiddleware, validateFileSize, createItem); //.single("myFile")
-
-/**
- * Obtener todos los archivos del storage
+/**  Obtener todos los archivos del storage
  * @openapi
  * /storage:
  *      get:
@@ -54,12 +27,17 @@ router.post("/", authMiddleware, checkRol(["admin"]), uploadMiddleware, validate
  *                schema: 
  *                  type: array
  *                  items: 
- *                  $ref: '#/components/schemas/storage'               
+ *                  $ref: '#/components/schemas/storage'
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error               
  */
 router.get("/", authMiddleware, getItems);
 
-/**
- * Obtener un archivo por id
+/**  Obtener un archivo por id
  * @openapi
  * /storage/{id}:
  *      get:
@@ -81,15 +59,51 @@ router.get("/", authMiddleware, getItems);
  *              content:
  *                application/json:
  *                  schema: 
- *                    $ref: '#/components/schemas/storage'               
+ *                    $ref: '#/components/schemas/storage' 
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error              
  */
 router.get("/:id", authMiddleware, validatorGetItem, getItem);
 
-//! No se puede actualizar el archivo cargado
+/**  Subir un archivo al storage
+ * @openapi
+ * /storage:
+ *      post:
+ *        tags:
+ *          - storage
+ *        summary: "Subir un archivo"
+ *        description: "Subir el archivo de la cancion"
+ *        security:
+ *          - bearerAuth: []
+ *        requestBody:
+ *          content:
+ *            multipart/form-data:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  myFile:
+ *                    type: string
+ *                    format: binary
+ *        responses:
+ *          '200':
+ *            description: Success  
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error            
+ */
+router.post("/", authMiddleware, checkRol(["admin"]), uploadMiddleware, validateFileSize, createItem); //.single("myFile")
+
+//! No actualizar el archivo cargado
 router.put("/:id", authMiddleware, checkRol(["admin"]), updateItem); 
 
-/**
- * Eliminar un archivo por el id
+/**  Eliminar un archivo por el id
  * @openapi
  * /storage/{id}:
  *      delete:
@@ -108,10 +122,13 @@ router.put("/:id", authMiddleware, checkRol(["admin"]), updateItem);
  *                type: string
  *        responses:
  *            '200':
- *              content:
- *                application/json:
- *                  schema: 
- *                    $ref: '#/components/schemas/storage'               
+ *              description: Success  
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error            
  */
 router.delete("/:id", authMiddleware, checkRol(["admin"]), deleteItem); 
 

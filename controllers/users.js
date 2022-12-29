@@ -20,6 +20,9 @@ const getUser = async (req, res) => {
     try {
         const { id } = req.params;
         const data = await userModel.findById(id);
+        if(data == null){
+        return handleHttpError(res, "El usuario no existe", 404);
+        }
         res.send(data);
     } catch (e) {
         handleHttpError(res, "Error al obtener el usuario. "+ e.message);
@@ -67,12 +70,16 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
+        req = matchedData(req);
         const {id} = req;
         // deleteOne Borrado fisico
-        const data = await userModel.delete({_id:id});
-        res.send({data});
-    } catch (error) {
-        handleHttpError(res, "Error al eliminar el usuario");
+        if(!await userModel.findById(id)){
+            return handleHttpError(res, "Error, el usuario que desea eliminar no existe");
+        }   
+        await userModel.delete({_id:id});
+        res.send({result: "Usuario eliminado"});
+    } catch (e) {
+        handleHttpError(res, "Error al eliminar el usuario. ", e.message);
     }
 };
 

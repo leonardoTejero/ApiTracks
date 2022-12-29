@@ -10,7 +10,7 @@ const register = async (req, res) => {
         req = matchedData(req);
         const existUser = await userModel.find({email: req.email});
         if(existUser.length !== 0){
-           return handleHttpError(res, "El correo ya fue usado intente con otro. ", 403);
+           return handleHttpError(res, "El correo ya fue usado intente con otro. ", 400);
         } 
         // Limpiar el req de datos basura o inecesarios
         const password = await encrypt(req.password);

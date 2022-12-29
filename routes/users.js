@@ -8,8 +8,9 @@ const { getUsers, createUser, deleteUser, getUser, updateUser } = require("../co
 
 const router = express.Router();
 
-/**
- * Obtener todos los usuarios
+
+/** 
+ *  Obtener todos los usuarios
  * @openapi
  * /users:
  *      get:
@@ -20,18 +21,23 @@ const router = express.Router();
  *          - bearerAuth: []    
  *        responses: 
  *          '200':
- *            description: Respuesta exitosa
+ *            content:
+ *              application/json:
+ *                schema: 
+ *                  type: array
+ *                  items: 
+ *                  $ref: '#/components/schemas/users'       
  *          '401':
- *            description: Sin autorizacion
+ *            description: User Unauthorized
  *          '400':
- *            description: Error de negocio
+ *            description: Bad Request
  *          '500':
  *            description: Error del servidor
  */
 router.get("/", authMiddleware, checkRol(["admin"]), getUsers);
 
-/**
- * Obtener un usuario por id
+/** 
+ *  Obtener un usuario por id
  * @openapi
  * /users/{id}:
  *      get:
@@ -52,12 +58,19 @@ router.get("/", authMiddleware, checkRol(["admin"]), getUsers);
  *              content:
  *                application/json:
  *                  schema: 
- *                    $ref: '#/components/schemas/users'               
+ *                    $ref: '#/components/schemas/users'   
+ *            '401':
+ *              description: User Unauthorized
+ *            '400':
+ *              description: Bad Request
+ *            '500':
+ *              description: Server Error            
  */
 router.get("/:id", authMiddleware, validatorGetItem, getUser);
 
-/**
- * Crear un usuario con permisos de administrador
+// TODO usar el mismo controlador de auth register y eliminar este
+/**  
+ * crear un usuario con permisos de administrador
  * @openapi
  * /users:
  *      post:
@@ -65,6 +78,8 @@ router.get("/:id", authMiddleware, validatorGetItem, getUser);
  *          - users
  *        summary: "Crear un nuevo usuario"
  *        description: "Crear un nuevo usuarion en la aplicacion, con permisos de administrador "
+ *        security:
+ *          - bearerAuth: []
  *        requestBody:
  *          content:
  *            application/json:
@@ -72,14 +87,18 @@ router.get("/:id", authMiddleware, validatorGetItem, getUser);
  *                $ref: "#/components/schemas/users"
  *        responses:
  *          '200':
- *            description: El usuario ha sido creado exitosamente
- *          '403':
- *            description: El correo ya ha sido usado
+ *            description: Success     
+ *          '401':
+ *            description: User Unauthorized
+ *          '400':
+ *            description: Bad Request
+ *          '500':
+ *            description: Server Error
  */
 router.post("/", authMiddleware, checkRol(["admin"]), validatorRegister, createUser); 
 
-/**
- * Actualizar una cancion
+/** 
+ *  Actualizar un usuario
  * @openapi
  * /users/{id}:
  *      put:
@@ -102,14 +121,18 @@ router.post("/", authMiddleware, checkRol(["admin"]), validatorRegister, createU
  *                $ref: "#/components/schemas/users"
  *        responses:
  *          '200':
- *            description: Respuesta exitosa
+ *            description: Success     
  *          '401':
- *            description: Sin autorizacion            
+ *            description: User unauthorized           
+ *          '400':
+ *            description: Bad Request      
+ *          '500':
+ *            description: Server Error      
  */
 router.put("/:id", authMiddleware, checkRol(["admin", "user"]), validatorGetItem, validatorRegister, updateUser); 
 
 /**
- * Eliminar un archivo por el id
+ *   Eliminar un archivo por el id
  * @openapi
  * /users/{id}:
  *      delete:
@@ -127,10 +150,15 @@ router.put("/:id", authMiddleware, checkRol(["admin", "user"]), validatorGetItem
  *                type: string
  *        responses:
  *         '200':
- *            description: Respuesta exitosa
+ *           description: Success
  *         '401':
- *            description: Sin autorizacion   
+ *           description: User Unauthorized
+ *         '400':
+ *           description: Bad Request
+ *         '500':
+ *           description: Server Error
  */
 router.delete("/:id", authMiddleware, checkRol(["admin"]), validatorGetItem, deleteUser); 
+
 
 module.exports = router;

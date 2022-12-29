@@ -13,7 +13,7 @@ const swaggerDefinition = {
         contact: {
             name: "Andres tejero",
             url: "https://www.linkedin.com/in/leonardo-tejero-8a0b3a152/",
-            email: "leonardo.tejero@gmail.com"
+            email: "leonardo.tejero4@gmail.com"
         }
     },
     servers: [
@@ -102,6 +102,9 @@ const swaggerDefinition = {
                                 type: "integer"
                             }
                         }
+                    },
+                    mediaId: {
+                        type: "string"
                     }
                 }
             },
